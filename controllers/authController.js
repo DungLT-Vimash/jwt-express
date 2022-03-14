@@ -33,7 +33,7 @@ const authController = {
         isAdmin: user.isAdmin,
       },
       process.env.JWT_ACCESS_KEY,
-      { expiresIn: "30s" }
+      { expiresIn: "1h" }
     );
   },
 
@@ -67,11 +67,12 @@ const authController = {
         const accessToken = authController.generateAccessToken(user);
         //Generate refresh token
         const refreshToken = authController.generateRefreshToken(user);
+
         refreshTokens.push(refreshToken);
         //STORE REFRESH TOKEN IN COOKIE
         res.cookie("refreshToken", refreshToken, {
           httpOnly: true,
-          secure:false,
+          secure: false,
           path: "/",
           sameSite: "strict",
         });
